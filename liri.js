@@ -22,10 +22,14 @@ function getTweets() {
   twitter(allKeys.twitterKeys).get('statuses/user_timeline', function(error, tweets, response) {
     if (!error) {
       console.log('-----------------------------------------');
+      log('-----------------------------------------');
       for (var i = 0; i < tweets.length; i ++) {
         console.log(tweets[i].text);
         console.log(tweets[i].created_at);
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        log(tweets[i].text);
+        log(tweets[i].created_at);
+        log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       }
       console.log('-----------------------------------------');
     }
@@ -53,6 +57,11 @@ function getSpotifySongs() {
         console.log('Preview link: ' + JSON.stringify(data.tracks.items[0].preview_url)); 
         console.log('Album: ' + JSON.stringify(data.tracks.items[0].album.name)); 
         console.log('-----------------------------------------');
+        log('-----------------------------------------');
+        log('Artist(s): ' + JSON.stringify(data.tracks.items[0].artists[0].name));
+        log('Song\'s Name: ' + JSON.stringify(data.tracks.items[0].name)); 
+        log('Preview link: ' + JSON.stringify(data.tracks.items[0].preview_url)); 
+        log('Album: ' + JSON.stringify(data.tracks.items[0].album.name)); 
     }); 
   } else {
     spotify
@@ -66,6 +75,12 @@ function getSpotifySongs() {
         console.log('Preview link: ' + JSON.stringify(data.preview_url)); 
         console.log('Album: ' + JSON.stringify(data.album.name)); 
         console.log('-----------------------------------------');
+        log('-----------------------------------------');
+        log('You haven\'t provided a song. Please enjoy the following instead: ');
+        log('Artist(s): ' + JSON.stringify(data.album.artists[0].name));
+        log('Song\'s Name: ' + JSON.stringify(data.name)); 
+        log('Preview link: ' + JSON.stringify(data.preview_url)); 
+        log('Album: ' + JSON.stringify(data.album.name)); 
     });
   } 
 }
@@ -84,6 +99,7 @@ function getMovieInfo() {
     request(queryUrl, function(error, response, body) {
       if (!error && response.statusCode === 200) {
         // console.log(body);
+        console.log('-----------------------------------------');
         console.log('Movie Title: ' + JSON.parse(body).Title);
         console.log('Release Year: ' + JSON.parse(body).Year);
         console.log('Rotten Tomatoes Rating: ' + JSON.parse(body).Ratings[1].Value);
@@ -91,6 +107,15 @@ function getMovieInfo() {
         console.log('Language: ' + JSON.parse(body).Language);
         console.log('Plot: ' + JSON.parse(body).Plot);
         console.log('Actors: ' + JSON.parse(body).Actors);
+        console.log('-----------------------------------------');
+        log('-----------------------------------------');
+        log('Movie Title: ' + JSON.parse(body).Title);
+        log('Release Year: ' + JSON.parse(body).Year);
+        log('Rotten Tomatoes Rating: ' + JSON.parse(body).Ratings[1].Value);
+        log('Country Movie is Produced: ' + JSON.parse(body).Country);
+        log('Language: ' + JSON.parse(body).Language);
+        log('Plot: ' + JSON.parse(body).Plot);
+        log('Actors: ' + JSON.parse(body).Actors);
       }
     });
   } else {
@@ -99,6 +124,7 @@ function getMovieInfo() {
     request(queryUrl, function(error, response, body) {
       if (!error && response.statusCode === 200) {
         // console.log(body);
+        console.log('-----------------------------------------');
         console.log('You haven\'t provided a movie. Please enjoy the following instead: ')
         console.log('Movie Title: ' + JSON.parse(body).Title);
         console.log('Release Year: ' + JSON.parse(body).Year);
@@ -107,11 +133,21 @@ function getMovieInfo() {
         console.log('Language: ' + JSON.parse(body).Language);
         console.log('Plot: ' + JSON.parse(body).Plot);
         console.log('Actors: ' + JSON.parse(body).Actors);
+        console.log('-----------------------------------------');
+        log('-----------------------------------------');
+        log('You haven\'t provided a movie. Please enjoy the following instead: ')
+        log('Movie Title: ' + JSON.parse(body).Title);
+        log('Release Year: ' + JSON.parse(body).Year);
+        log('Rotten Tomatoes Rating: ' + JSON.parse(body).Ratings[1].Value);
+        log('Country Movie is Produced: ' + JSON.parse(body).Country);
+        log('Language: ' + JSON.parse(body).Language);
+        log('Plot: ' + JSON.parse(body).Plot);
+        log('Actors: ' + JSON.parse(body).Actors);
       }
     });
   }
 }
-
+ 
 ////////////////////////////////////////////////
 /////////////////random.txt Stuff///////////////
 function doRandomText() {
@@ -120,7 +156,7 @@ function doRandomText() {
         return console.log(error);
     }
     // console.log(data);
-    var dataArr = data.split(", ");
+    var dataArr = data.split(",");
     // console.log(dataArr);
     userInput = dataArr[0];
     dataArr.splice(1, 0, '', '');
@@ -132,13 +168,13 @@ function doRandomText() {
 
 ////////////////////////////////////////////////
 /////////////////////Helper/////////////////////
-// function log() {
-//   fs.appendFile("log.text", , function(err) {
-//     if (err) {
-//         return console.log(err);
-//     }
-//     console.log("Log updated!");
-// }
+function log(text) {
+  fs.appendFile("log.text", '\n' + text, function(err) {
+    if (err) {
+        return console.log(err);
+    }
+  });
+}
 
 ////////////////////////////////////////////////
 //////////////Overall Logic/////////////////////
