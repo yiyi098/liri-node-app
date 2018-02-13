@@ -1,6 +1,5 @@
 // ```JavaScript
-console.log('Keys are loaded');
-
+// console.log('Keys are loaded');
 var twitterKeys = {
   consumer_key: 'LfLcDMrtY7xNoV1rpvesYH0u7',
   consumer_secret: 'uGCIFRBUyIRuax4l9o5cFW2SDgaKRg4GpAMC2rxiAVWEc1UdRM',
